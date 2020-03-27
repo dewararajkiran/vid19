@@ -70,12 +70,12 @@ const listener = app.listen(process.env.PORT, function() {
 
 
 app.get('/', function (req, res) {
-	//alert('get');
+	console.log('app.get');
         res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)		  
 });
 
 app.post('/dialogflowResponse', async function(req, res) {
-	//alert(2);
+	console.log('....dialogflowResponse');
   const body = req.body;
   const text = body.Body;
   const id = body.From;
