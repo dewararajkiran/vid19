@@ -93,5 +93,5 @@ process.on('SIGTERM', () => {
   });
 });
 //require('./app/routes.js')(app);
-app.listen(port);
+//app.listen(port);
 console.log("App listening on port " + port);
