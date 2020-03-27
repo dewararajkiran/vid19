@@ -75,15 +75,24 @@ app.get('/', function (req, res) {
 });
 
 app.post('/dialogflowResponse', async function(req, res) {
-	console.log('....dialogflowResponse');
+	try{
   const body = req.body;
   const text = body.Body;
   const id = body.From;
+  console.log('....dialogflowResponse-1'+req);
+  console.log('....dialogflowResponse-2'+body);
+	console.log('....dialogflowResponse-3'+text);
+	console.log('....dialogflowResponse-4'+id);
   const dialogflowResponse = (await sessionClient.detectIntent(
       text, id, body)).fulfillmentText;
+	  console.log('....dialogflowResponse-5'+dialogflowResponse);
   const twiml = new  MessagingResponse();
   const message = twiml.message(dialogflowResponse);
+  console.log('....dialogflowResponse-6'+message);
   res.send(twiml.toString());
+	}catch(error){
+		console.log('error occured::'+error);
+	}
 });
 
 process.on('SIGTERM', () => {
