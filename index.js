@@ -30,16 +30,19 @@ client.messages.create({
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const express = require('express');
+
+ const express = require('express');
 const request = require('request');
 const app = express();
 const dialogflowSessionClient =
-    require('botlib/dialogflow_session_client.js');
+    require('./botlib/dialogflow_session_client.js');
 const bodyParser = require('body-parser');
 
+app.use(express.static('/')); 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 require('dotenv').config();
+var port = process.env.PORT || 8080; 				// set the port
 console.log('Your environment variable TWILIO_ACCOUNT_SID has the value: ', process.env.TWILIO_ACCOUNT_SID);
 //const client = require('twilio')();
 
@@ -62,8 +65,17 @@ const listener = app.listen(process.env.PORT, function() {
   console.log('Your Twilio integration server is listening on port '
       + listener.address().port);
 });
+// routes ======================================================================
 
-app.post('/', async function(req, res) {
+
+
+app.get('/', function (req, res) {
+	//alert('get');
+        res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)		  
+});
+
+app.post('/dialogflowResponse', async function(req, res) {
+	//alert(2);
   const body = req.body;
   const text = body.Body;
   const id = body.From;
@@ -80,3 +92,6 @@ process.on('SIGTERM', () => {
     process.exit(0);
   });
 });
+//require('./app/routes.js')(app);
+app.listen(port);
+console.log("App listening on port " + port);
