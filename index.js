@@ -86,7 +86,7 @@ app.post('/dialogflowResponse', async function(req, res) {
   const dialogflowResponse = (await sessionClient.detectIntent(
       text, id, body));
 		const fulfilmentText = dialogflowResponse.fulfillmentText;
-	  console.log('....dialogflowResponse-5'+dialogflowResponse);
+	  console.log('....dialogflowResponse-5'+JSON.stringify(dialogflowResponse));
   const twiml = new  MessagingResponse();
   const message = twiml.message(fulfilmentText);
   console.log('....dialogflowResponse-6'+message);
