@@ -84,10 +84,11 @@ app.post('/dialogflowResponse', async function(req, res) {
 	console.log('....dialogflowResponse-3'+text);
 	console.log('....dialogflowResponse-4'+id);
   const dialogflowResponse = (await sessionClient.detectIntent(
-      text, id, body)).fulfillmentText;
+      text, id, body));
+		const fulfilmentText = dialogflowResponse.fulfillmentText;
 	  console.log('....dialogflowResponse-5'+dialogflowResponse);
   const twiml = new  MessagingResponse();
-  const message = twiml.message(dialogflowResponse);
+  const message = twiml.message(fulfilmentText);
   console.log('....dialogflowResponse-6'+message);
   res.send(twiml.toString());
 	}catch(error){
