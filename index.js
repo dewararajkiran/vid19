@@ -79,7 +79,7 @@ app.post('/dialogflowResponse', async function(req, res) {
   const body = req.body;
   const text = body.Body;
   const id = body.From;
-  console.log('....dialogflowResponse-1-request-'+JSON.stringify(req));
+  console.log('....dialogflowResponse-1-request-'+JSON.stringify(body));
   console.log('....dialogflowResponse-2'+body);
 	console.log('....dialogflowResponse-3'+text);
 	console.log('....dialogflowResponse-4'+id);
